@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<?import presentation.ui_components.BottomNavLeftHomeRight?>
+
+<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <BorderPane id="stressBreathingView" fx:id="stressBreathingView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
+      <top>
+         <Label id="stressBreathingHeaderLabel" fx:id="stressBreathingHeaderLabel" alignment="CENTER" prefWidth="390.0" text="Einatmen ..." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+               <Insets bottom="-30.0" left="30.0" right="30.0" top="130.0" />
+            </BorderPane.margin>
+            <styleClass>
+               <String fx:value="headerLabel" />
+               <String fx:value="bigHeaderLabel" />
+            </styleClass>
+         </Label>
+      </top>
+      <center>
+         <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <Circle id="breathingCircle" fx:id="breathingCircle" fill="DODGERBLUE" radius="35.0" strokeWidth="0.0">
+<!--                  <effect>-->
+<!--                     <Bloom />-->
+<!--                  </effect>-->
+               </Circle>
+               <Button fx:id="startAnimationButton" defaultButton="true" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" text="Start" />
+            </children>
+         </StackPane>
+      </center>
+      <bottom>
+         <presentation.ui_components.BottomNavLeftHomeRight fx:id="bottomNavLeftHomeRight" />
+      </bottom>
+   </BorderPane>
+</StackPane>

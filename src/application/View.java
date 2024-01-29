@@ -1,0 +1,20 @@
+package application;
+
+/**
+ * Enum für alle Views
+ */
+public enum View {
+    INTRO,
+    STRESS_INTRO,
+    STRESS_SELECTION,
+    STRESS_BREATHING,
+    STRESS_END,
+    MEDITATION_INTRO,
+    MEDITATION_SELECTION,
+    MEDITATION_PLAYER,
+    MEDITATION_END,
+    MOTIVATION_INTRO,
+    MOTIVATION_SELECTION,
+    MOTIVATION_EXERCISE,
+    MOTIVATION_END
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<?import presentation.ui_components.BottomNavLeftHome?>
+
+<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <BorderPane id="stressIntroView" fx:id="stressSelectionView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
+      <top>
+         <Label id="stressSelectionHeaderLabel" fx:id="stressSelectionHeaderLabel" alignment="CENTER" prefWidth="390.0" text="Bitte wähle einen Atemrhythmus:" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+               <Insets left="30.0" right="30.0" top="120.0" />
+            </BorderPane.margin>
+            <styleClass>
+               <String fx:value="headerLabel" />
+               <String fx:value="bigHeaderLabel" />
+            </styleClass>
+         </Label>
+      </top>
+      <center>
+         <VBox id="rhythmElements" fx:id="rhythmElements" alignment="CENTER" prefHeight="530.0" prefWidth="390.0" styleClass="descriptionLabel" BorderPane.alignment="CENTER">
+            <children>
+               <HBox fx:id="firstRhythm" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <StackPane fx:id="actionCircle1" prefHeight="150.0" prefWidth="200.0">
+                        <children>
+                           <Circle id="firstRhythmCircle" fx:id="firstRhythmCircle" styleClass="firstRhythmColor" radius="40.0" strokeWidth="0.0">
+<!--                              <effect>-->
+<!--                                 <Bloom />-->
+<!--                              </effect>-->
+                           </Circle>
+                           <Button fx:id="chooseFirstRhythm" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
+                        </children>
+                     </StackPane>
+                     <VBox fx:id="textContainer1" alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
+                        <children>
+                           <Label fx:id="breathInLabel1" text="3s einatmen" />
+                           <Line fx:id="labelDivider1" endX="-20.207107543945312" endY="0.2928932309150696" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="2.0">
+                              <VBox.margin>
+                                 <Insets top="5.0" />
+                              </VBox.margin>
+                           </Line>
+                           <Label fx:id="breathOutLabel1" text="6s ausatmen">
+                              <VBox.margin>
+                                 <Insets top="5.0" />
+                              </VBox.margin>
+                           </Label>
+                        </children>
+                     </VBox>
+                  </children>
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox fx:id="secondRhythm" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <StackPane fx:id="actionCircle2" prefHeight="150.0" prefWidth="200.0">
+                        <children>
+                           <Circle id="secondRhythmCircle" fx:id="secondRhythmCircle" styleClass="secondRhythmColor" radius="40.0" strokeWidth="0.0">
+<!--                              <effect>-->
+<!--                                 <Bloom />-->
+<!--                              </effect>-->
+                           </Circle>
+                           <Button fx:id="chooseSecondRhythm" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
+                        </children>
+                     </StackPane>
+                     <VBox fx:id="textContainer2" alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
+                        <children>
+                           <Label fx:id="breathInLabel2" text="5s einatmen" />
+                           <Line fx:id="labelDivider2" endX="-20.207107543945312" endY="0.2928932309150696" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="2.0">
+                              <VBox.margin>
+                                 <Insets top="5.0" />
+                              </VBox.margin>
+                           </Line>
+                           <Label fx:id="breathOutLabel2" prefHeight="21.0" prefWidth="143.0" text="10s ausatmen">
+                              <VBox.margin>
+                                 <Insets top="5.0" />
+                              </VBox.margin>
+                           </Label>
+                        </children>
+                     </VBox>
+                  </children>
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox fx:id="thirdRhythm" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <StackPane fx:id="actionCircle3" prefHeight="150.0" prefWidth="200.0">
+                        <children>
+                           <Circle id="thirdRhythmCircle" fx:id="thirdRhythmCircle" styleClass="thirdRhythmColor" radius="40.0" strokeWidth="0.0">
+<!--                              <effect>-->
+<!--                                 <Bloom />-->
+<!--                              </effect>-->
+                           </Circle>
+                           <Button fx:id="chooseThirdRhythm" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
+                        </children>
+                     </StackPane>
+                     <VBox fx:id="textContainer3" alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
+                        <children>
+                           <Label fx:id="breathInLabel3" text="8s einatmen" />
+                           <Line fx:id="labelDivider3" endX="-20.207107543945312" endY="0.2928932309150696" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="2.0">
+                              <VBox.margin>
+                                 <Insets top="5.0" />
+                              </VBox.margin>
+                           </Line>
+                           <Label fx:id="breathOutLabel3" text="16s ausatmen">
+                              <VBox.margin>
+                                 <Insets top="5.0" />
+                              </VBox.margin>
+                           </Label>
+                        </children>
+                     </VBox>
+                  </children>
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </HBox>
+            </children>
+            <BorderPane.margin>
+               <Insets bottom="70.0" />
+            </BorderPane.margin>
+         </VBox>
+      </center>
+      <bottom>
+         <presentation.ui_components.BottomNavLeftHome fx:id="bottomNavLeftHome" />
+      </bottom>
+   </BorderPane>
+</StackPane>

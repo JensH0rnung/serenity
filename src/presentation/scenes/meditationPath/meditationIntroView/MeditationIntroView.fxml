@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<?import presentation.ui_components.BottomNavHomeRight?>
+
+<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <BorderPane id="meditationIntroView" fx:id="meditationIntroView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
+      <top>
+         <Label id="meditationIntroHeaderLabel" fx:id="meditationIntroHeaderLabel" alignment="CENTER" prefWidth="390.0" text="Wie wäre es mit einer kurzen Meditation?" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+               <Insets left="30.0" right="30.0" top="120.0" />
+            </BorderPane.margin>
+            <styleClass>
+               <String fx:value="headerLabel" />
+               <String fx:value="bigHeaderLabel" />
+            </styleClass>
+         </Label>
+      </top>
+      <center>
+         <VBox id="textContainer" fx:id="textContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="descriptionLabel" BorderPane.alignment="CENTER">
+            <children>
+               <Label fx:id="firstTextLabel" alignment="CENTER" text="Im nächsten Schritt kannst du Musik zur Entspannung auswählen" textAlignment="CENTER" wrapText="true">
+                  <VBox.margin>
+                     <Insets bottom="70.0" left="30.0" right="30.0" top="40.0" />
+                  </VBox.margin>
+               </Label>
+               <VBox fx:id="fourLabelContainer" alignment="CENTER" prefHeight="116.0" prefWidth="390.0">
+                  <children>
+                     <Label fx:id="secondTextLabel" alignment="CENTER" text="Danach wird ein Timer gestartet, der die Dauer deiner Mediation anzeigt" textAlignment="CENTER" wrapText="true">
+                        <VBox.margin>
+                           <Insets bottom="5.0" left="30.0" right="30.0" />
+                        </VBox.margin>
+                     </Label>
+                     <Line fx:id="textSeparationLine" endX="100.0" fill="WHITE" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="2.0">
+                        <VBox.margin>
+                           <Insets bottom="5.0" top="5.0" />
+                        </VBox.margin>
+                     </Line>
+                     <Label fx:id="thirdTextLabel" alignment="CENTER" text="Verwende die Sleep-Funktion" textAlignment="CENTER" wrapText="true">
+                        <VBox.margin>
+                           <Insets left="30.0" right="30.0" />
+                        </VBox.margin>
+                     </Label>
+                     <!-- Zusätzliche Label, damit Icon augenscheinlich "mitten" im Text stehen kann -->
+                     <Label fx:id="fourthTextLabel" alignment="CENTER" text="um die Wiedergabe nach geplanter" textAlignment="CENTER" wrapText="true">
+                        <VBox.margin>
+                           <Insets left="30.0" right="30.0" />
+                        </VBox.margin>
+                     </Label>
+                     <Label fx:id="fifthTextLabel" alignment="CENTER" text="Zeit zu beenden" textAlignment="CENTER" wrapText="true">
+                        <VBox.margin>
+                           <Insets left="30.0" right="30.0" />
+                        </VBox.margin>
+                     </Label>
+                  </children>
+               </VBox>
+            </children>
+         </VBox>
+      </center>
+      <bottom>
+         <presentation.ui_components.BottomNavHomeRight fx:id="bottomNavHomeRight" />
+      </bottom>
+   </BorderPane>
+</StackPane>
