@@ -1,11 +1,11 @@
 package application;
+import business_logic.data.SoundManager;
 import business_logic.services.BreathingRhythmClass;
 import business_logic.services.SoundPlayer;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import presentation.scenes.introView.IntroViewController;
@@ -32,7 +32,8 @@ public class App extends Application {
     private HashMap<View, Pane> primaryViews;
 
     BreathingRhythmClass breathingRhythm;
-    SoundPlayer player;
+    SoundPlayer soundPlayer;
+    SoundManager soundManager;
 
     private Pane introView;
 
@@ -57,7 +58,8 @@ public class App extends Application {
     @Override
     public void init() {
 
-        player = new SoundPlayer();
+        soundPlayer = new SoundPlayer();
+        soundManager = new SoundManager();
 
         // Ermöglicht Zugriff auf DurationProperty der CircleAnimation
         breathingRhythm = new BreathingRhythmClass();
@@ -96,11 +98,11 @@ public class App extends Application {
         meditationIntroView = meditationIntroController.getRoot();
         primaryViews.put(View.MEDITATION_INTRO, meditationIntroView);
 
-        MeditationSelectionController meditationSelectionController = new MeditationSelectionController(this);
+        MeditationSelectionController meditationSelectionController = new MeditationSelectionController(this, soundPlayer, soundManager);
         meditationSelectSoundView = meditationSelectionController.getRoot();
         primaryViews.put(View.MEDITATION_SELECTION, meditationSelectSoundView);
 
-        MeditationPlayerViewController meditationPlayerViewController = new MeditationPlayerViewController(this, player);
+        MeditationPlayerViewController meditationPlayerViewController = new MeditationPlayerViewController(this, soundPlayer, soundManager);
         meditationPlayerView = meditationPlayerViewController.getRoot();
         primaryViews.put(View.MEDITATION_PLAYER, meditationPlayerView);
 
@@ -151,6 +153,16 @@ public class App extends Application {
             case STRESS_INTRO:
                 startRightSlideAnimation(scene, (Pane) scene.getRoot(), stressIntroView);
                 break;
+
+            default:
+                System.out.println("default ViewSwitch - ohne Animation");
+                Scene currentScene = primaryStage.getScene();
+
+                Pane nextView = primaryViews.get(viewName);
+                if (nextView != null) {
+                    currentScene.setRoot(nextView);
+                }
+                root = nextView;
         }
     }
 

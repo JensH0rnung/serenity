@@ -1,65 +1,89 @@
 package business_logic.services;
 
-import business_logic.data.MeditationSound;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 /**
- * simpler MP3Player, der versch. Sounds zum Meditieren abspielen soll
- * Verwendet den Minim-Player um Dateien abzuspielen
+ * Steuert die Wiedergabe der MeditationsSounds
+ * Funktionalitäten:
+ *  - Play
+ *  - Pause
+ *  - Repeat
+ *  - Sleep-Timer
  */
 public class SoundPlayer {
 
-    private MediaPlayer player;
-    private MeditationSound meditationSound;
-    private static final String soundDir = "./assets/meditationSounds";
-    private SimpleObjectProperty actSound;
+    private MediaPlayer mediaPlayer;
+    private SimpleObjectProperty<Media> actSound;
+    private boolean onRepeat;
 
+    // Default-Werte
     public SoundPlayer() {
-
         actSound = new SimpleObjectProperty<>();
-        // lädt alle Sounds aus Directory?
-        meditationSound = new MeditationSound(soundDir);
-
-        actSound.addListener(
-                ((observableValue, oldMedia, newMedia) -> {
-                    player = new MediaPlayer((Media) newMedia);
-                })
-        );
+        onRepeat = false;
     }
 
+    // Wiedergabe starten oder fortsetzen
     public void play() {
-        player.play();
-    }
+        if (mediaPlayer == null && getActSound() != null) {
+            mediaPlayer = new MediaPlayer(getActSound());
+        }
 
-    public void pause() {
-        player.pause();
-    }
-
-    public void loadSound(String soundName) {
-        try {
-
-            Media sound = meditationSound.getSound(soundName);
-            actSound.set(sound);
-
-        } catch(NullPointerException e) {
-            System.out.println("Ungültiger SoundName");
+        if(mediaPlayer != null) {
+            mediaPlayer.play();
         }
     }
 
-    // vermutlich unnötig
-    public Object getActSound() {
+    public void pause() {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
+    }
+
+    // setzt den MediaPlayer zurück
+    public void reset() {
+        if (mediaPlayer != null) {
+            mediaPlayer.seek(javafx.util.Duration.ZERO);
+        }
+    }
+
+    // Müsste soweit funktionieren, testen mit kurzem Sound
+    public void toggleRepeat() {
+        if (mediaPlayer != null) {
+            if (!onRepeat) {
+                onRepeat = true;
+                mediaPlayer.setOnEndOfMedia(
+                        () -> mediaPlayer.seek(Duration.seconds(0))
+                );
+                // Test
+                System.out.println("Repeat on");
+            } else {
+                onRepeat = false;
+                mediaPlayer.setOnEndOfMedia(
+                        () -> mediaPlayer.stop()
+                );
+                // Test
+                System.out.println("Repeat off");
+            }
+        }
+    }
+
+    // Gibt an, ob Player gerade spielt
+    public boolean isPlaying() {
+        return mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
+    }
+
+    public Media getActSound() {
         return actSound.get();
     }
 
-    // Aufruf aus PlayerView
-    public SimpleObjectProperty actSoundProperty() {
+    public SimpleObjectProperty<Media> actSoundProperty() {
         return actSound;
     }
 
-    // Aufruf aus SelectionView
-    public void setActSound(Object actSound) {
+    public void setActSound(Media actSound) {
         this.actSound.set(actSound);
     }
 }
