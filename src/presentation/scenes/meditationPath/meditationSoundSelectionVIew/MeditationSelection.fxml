@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,8 +15,7 @@
 
 <?import presentation.ui_components.BottomNavLeftHome?>
 
-<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <BorderPane id="introView" fx:id="introView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
+   <BorderPane id="introView" fx:id="introView" styleClass="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
       <top>
          <Label id="introHeaderLabel" fx:id="introHeaderLabel" alignment="CENTER" text="Bitte wähle deine Musik:" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -48,10 +46,7 @@
                            <StackPane prefHeight="150.0" prefWidth="200.0">
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="111.0" opacity="0.5" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                                 <ImageView fx:id="img1" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../../../../assets/soundSelectionImgs/waves.png" />
-                                    </image></ImageView>
+                                 <ImageView fx:id="imgView1" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" />
                               </children>
                            </StackPane>
                            <Label fx:id="img1Label" styleClass="subImgLabel" text="Meeresrauschen">
@@ -69,11 +64,7 @@
                            <StackPane prefHeight="150.0" prefWidth="200.0">
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="111.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                                 <ImageView fx:id="img2" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../../../../assets/soundSelectionImgs/forest.png" />
-                                    </image>
-                                 </ImageView>
+                                 <ImageView fx:id="imgView2" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" />
                               </children>
                            </StackPane>
                            <Label fx:id="img2Label" styleClass="subImgLabel" text="Waldklänge">
@@ -91,14 +82,10 @@
                            <StackPane prefHeight="150.0" prefWidth="200.0">
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="111.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                                 <ImageView fx:id="img3" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../../../../assets/soundSelectionImgs/piano.png" />
-                                    </image>
-                                 </ImageView>
+                                 <ImageView fx:id="imgView3" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" />
                               </children>
                            </StackPane>
-                           <Label fx:id="img3Label" styleClass="subImgLabel" text="ruhiges Piano">
+                           <Label fx:id="img3Label" styleClass="subImgLabel" text="Piano">
                               <VBox.margin>
                                  <Insets top="5.0" />
                               </VBox.margin>
@@ -113,11 +100,7 @@
                            <StackPane prefHeight="150.0" prefWidth="200.0">
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="111.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                                 <ImageView fx:id="img4" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../../../../assets/soundSelectionImgs/raindrops.png" />
-                                    </image>
-                                 </ImageView>
+                                 <ImageView fx:id="imgView4" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" />
                               </children>
                            </StackPane>
                            <Label fx:id="img4Label" styleClass="subImgLabel" text="Regen">
@@ -132,11 +115,7 @@
                            <StackPane prefHeight="150.0" prefWidth="200.0">
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="111.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                                 <ImageView fx:id="img5" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../../../../assets/soundSelectionImgs/singing_bowl.png" />
-                                    </image>
-                                 </ImageView>
+                                 <ImageView fx:id="imgView5" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" />
                               </children>
                            </StackPane>
                            <Label fx:id="img5Label" styleClass="subImgLabel" text="Klangschale">
@@ -151,11 +130,7 @@
                            <StackPane prefHeight="150.0" prefWidth="200.0">
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="111.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                                 <ImageView fx:id="img6" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../../../../assets/soundSelectionImgs/frequency.png" />
-                                    </image>
-                                 </ImageView>
+                                 <ImageView fx:id="imgView6" fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" />
                               </children>
                            </StackPane>
                            <Label fx:id="img6Label" styleClass="subImgLabel" text="Delta-Wellen">
@@ -180,4 +155,3 @@
            <presentation.ui_components.BottomNavLeftHome fx:id="bottomNavLeftHome" />
        </bottom>
    </BorderPane>
-</StackPane>

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -19,7 +20,7 @@ import java.io.IOException;
 
 public class StressBreathingController {
 
-    private StackPane root;
+    private BorderPane root;
     private App app;
     private BreathingRhythmClass breathingRhythm;
 
@@ -29,6 +30,7 @@ public class StressBreathingController {
     private int breathInDuration;
     private int breathOutDuration;
     private String color;
+//    private double circlradius
 
     @FXML
     Label stressBreathingHeaderLabel;
@@ -100,22 +102,20 @@ public class StressBreathingController {
         rightArrowButton = bottomNavLeftHomeRight.getRightArrowButton();
 
         leftArrowButton.setOnAction(
-                actionevent -> app.switchView(View.STRESS_SELECTION)
+//                actionevent -> app.fadeTo(View.STRESS_SELECTION)
+                actionevent -> {
+                    app.fadeTo(View.STRESS_SELECTION);
+                    resetBreathingAnimation();
+                }
         );
 
         homeButton.setOnAction(
-                actionevent -> app.switchView(View.INTRO)
+                actionevent -> app.fadeTo(View.INTRO)
         );
 
         rightArrowButton.setOnAction(
-                actionEvent -> app.switchView(View.STRESS_END)
+                actionEvent -> app.rightSlideTo(View.STRESS_END)
         );
-
-//        breathingCircle.radiusProperty().addListener(
-//                (observable, oldV, newV) -> {
-//                    // Dies verwenden anstatt Scaling setByX / Y?
-//                }
-//        );
 
         // Animation, die den Kreis wachsen lässt
         circGrow = new ScaleTransition();
@@ -150,6 +150,13 @@ public class StressBreathingController {
                     );
                 }
         );
+    }
+
+    private void resetBreathingAnimation() {
+        circGrow.stop();
+        circShrink.stop();
+        // reset circle attributes
+        // show & activate start-button in circle
     }
 
     public Pane getRoot() {

@@ -11,6 +11,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,7 @@ import java.io.IOException;
 
 public class MeditationIntroController {
 
-    private StackPane root;
+    private BorderPane root;
     private App app;
 
     private FadeTransition fade1;
@@ -66,14 +67,14 @@ public class MeditationIntroController {
         rightArrowButton = bottomNavHomeRight.getRightArrowButton();
 
         homeButton.setOnAction(
-                actionevent -> app.switchView(View.INTRO)
+                actionevent -> app.fadeTo(View.INTRO)
         );
 
         rightArrowButton.setOnAction(
-                actionEvent -> app.switchView(View.MEDITATION_SELECTION)
+                actionEvent -> app.rightSlideTo(View.MEDITATION_SELECTION)
         );
 
-        Image image = new Image("presentation/scenes/meditationPath/meditationIntroView/sleepTimerIcon.png");
+        Image image = new Image("assets/icons/sleepIcon20.png");
         ImageView sleepIcon = new ImageView(image);
         thirdTextLabel.setGraphic(sleepIcon);
         thirdTextLabel.setContentDisplay(ContentDisplay.RIGHT);

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 public class StressIntroController {
 
-    private StackPane root;
+    private BorderPane root;
     private App app;
 
     private FadeTransition fade1;
@@ -62,13 +63,11 @@ public class StressIntroController {
         rightArrowButton = bottomNavHomeRight.getRightArrowButton();
 
         homeButton.setOnAction(
-                actionevent -> {
-                    app.switchView(View.INTRO);
-                }
+                actionevent -> app.fadeTo(View.INTRO)
         );
 
         rightArrowButton.setOnAction(
-                actionEvent -> app.switchView(View.STRESS_SELECTION)
+                actionEvent -> app.rightSlideTo(View.STRESS_SELECTION)
         );
 
         // Erstellt Fades für jedes Label, bzw. Label-Gruppierungen

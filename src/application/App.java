@@ -1,5 +1,5 @@
 package application;
-import business_logic.data.SoundManager;
+import business_logic.services.SoundManager;
 import business_logic.services.BreathingRhythmClass;
 import business_logic.services.SoundPlayer;
 import javafx.animation.*;
@@ -65,6 +65,7 @@ public class App extends Application {
         breathingRhythm = new BreathingRhythmClass();
 
         defaultView = View.MEDITATION_PLAYER;
+        System.out.println("defaultView - " + defaultView);
         primaryViews = new HashMap<>();
 
         /*
@@ -73,7 +74,7 @@ public class App extends Application {
          */
 
         IntroViewController introViewController = new IntroViewController(this);
-        introView = introViewController.getParentContainer();
+        introView = introViewController.getRoot();
         primaryViews.put(View.INTRO, introView);
 
         // StressPath
@@ -102,7 +103,7 @@ public class App extends Application {
         meditationSelectSoundView = meditationSelectionController.getRoot();
         primaryViews.put(View.MEDITATION_SELECTION, meditationSelectSoundView);
 
-        MeditationPlayerViewController meditationPlayerViewController = new MeditationPlayerViewController(this, soundPlayer, soundManager);
+        MeditationPlayerViewController meditationPlayerViewController = new MeditationPlayerViewController(this, soundPlayer, soundManager, meditationSelectionController);
         meditationPlayerView = meditationPlayerViewController.getRoot();
         primaryViews.put(View.MEDITATION_PLAYER, meditationPlayerView);
 
@@ -140,36 +141,47 @@ public class App extends Application {
     }
 
     /**
-     * Wechselt zwischen Views
+     * Startet FadeAnimation zum nächsten View
      *
-     * @param viewName - View, der angezeigt werden soll
+     * @param nextView - View der angezeigt werden soll
      */
-    public void switchView(View viewName) {
+    public void fadeTo(View nextView) {
+        Pane currentPane = (Pane) scene.getRoot();
+        Pane nextPane = primaryViews.get(nextView);
 
-        switch(viewName) {
-            case INTRO:
-                startFadeAnimation(scene, (Pane) scene.getRoot(), introView);
-                break;
-            case STRESS_INTRO:
-                startRightSlideAnimation(scene, (Pane) scene.getRoot(), stressIntroView);
-                break;
-
-            default:
-                System.out.println("default ViewSwitch - ohne Animation");
-                Scene currentScene = primaryStage.getScene();
-
-                Pane nextView = primaryViews.get(viewName);
-                if (nextView != null) {
-                    currentScene.setRoot(nextView);
-                }
-                root = nextView;
-        }
+        startFadeAnimation(scene, currentPane, nextPane);
     }
 
+    /**
+     * Startet RightSlideAnimation zum nächsten View
+     *
+     * @param nextView - View der angezeigt werden soll
+     */
+    public void rightSlideTo(View nextView) {
+        Pane currentPane = (Pane) scene.getRoot();
+        Pane nextPane = primaryViews.get(nextView);
+
+        startRightSlideAnimation(scene, currentPane, nextPane);
+    }
+
+    /**
+     * Startet LeftSlideAnimation zum nächsten View
+     *
+     * @param nextView - View der angezeigt werden soll
+     */
+    public void leftSlideTo(View nextView) {
+        Pane currentPane = (Pane) scene.getRoot();
+        Pane nextPane = primaryViews.get(nextView);
+
+        startLeftSlideAnimation(scene, currentPane, nextPane);
+    }
+
+    /**
+     * Definition und Ausführung der FadeTransition
+     */
     public void startFadeAnimation(Scene scene, Pane currentView, Pane toView) {
         // Hilfs-StackPane erzeugen
         StackPane helpPane = new StackPane();
-        helpPane.setId("helpPane"); // für BackgroundColor
 
         // Anim-Vorbereitung
         helpPane.getChildren().addAll(currentView, toView);
@@ -179,14 +191,14 @@ public class App extends Application {
         FadeTransition fadeOut = new FadeTransition();
         fadeOut.setNode(currentView);
         fadeOut.setDuration(Duration.seconds(0.25));
-        fadeOut.setInterpolator(Interpolator.EASE_OUT);
+        fadeOut.setInterpolator(Interpolator.EASE_BOTH);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
 
         FadeTransition fadeIn = new FadeTransition();
         fadeIn.setNode(toView);
         fadeIn.setDuration(Duration.seconds(0.5));
-        fadeIn.setInterpolator(Interpolator.EASE_OUT);
+        fadeIn.setInterpolator(Interpolator.EASE_BOTH);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
 
@@ -202,22 +214,63 @@ public class App extends Application {
     }
 
     /**
-     * Animation, die vom navRightArrow aufgerufen wird
+     * LeftSlideAnimation, die vom navLeftArrow aufgerufen wird
+     *
+     * @param scene
+     * @param currentView - aktuell gezeigter View
+     * @param toView - View, der angezeigt werden soll
+     */
+    public void startLeftSlideAnimation(Scene scene, Pane currentView, Pane toView) {
+        // Hilfs-StackPane erzeugen
+        StackPane helpPane = new StackPane();
+
+        // Anim-Vorbereitung
+        helpPane.getChildren().addAll(currentView, toView);
+        toView.setTranslateX(-scene.getWidth());
+        scene.setRoot(helpPane);
+
+        // Anim-Definitionen
+        TranslateTransition slideIn = new TranslateTransition();
+        slideIn.setNode(toView);
+        slideIn.setDuration(Duration.seconds(0.5));
+        slideIn.setInterpolator(Interpolator.EASE_OUT);
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition();
+        slideOut.setNode(currentView);
+        slideOut.setDuration(Duration.seconds(0.5));
+        slideOut.setInterpolator(Interpolator.EASE_OUT);
+        slideOut.setToX(scene.getWidth());
+
+        // SlideIn & SlideOut soll gleichzeitig passieren
+        ParallelTransition parallelTransition = new ParallelTransition(slideIn, slideOut);
+        parallelTransition.setOnFinished(e -> {
+            helpPane.getChildren().removeAll(currentView, toView);
+            scene.setRoot(toView);
+
+            currentView.setTranslateX(0);
+        });
+
+        parallelTransition.play();
+    }
+
+    /**
+     * RightSlideAnimation, die vom navRightArrow aufgerufen wird
      *
      * @param scene
      * @param currentView - aktuell gezeigter View
      * @param toView - View, der angezeigt werden soll
      */
     public void startRightSlideAnimation(Scene scene, Pane currentView, Pane toView) {
-
+        // Hilfs-StackPane erzeugen
         StackPane helpPane = new StackPane();
-        helpPane.setId("helpPane");
 
+        // Anim-Vorbereitung
         helpPane.getChildren().addAll(currentView, toView);
-        currentView.setTranslateX(0);
         toView.setTranslateX(scene.getWidth());
         scene.setRoot(helpPane);
 
+        // Anim-Definitionen
         TranslateTransition slideIn = new TranslateTransition();
         slideIn.setNode(toView);
         slideIn.setDuration(Duration.seconds(0.5));
@@ -235,6 +288,8 @@ public class App extends Application {
         parallelTransition.setOnFinished(e -> {
             helpPane.getChildren().removeAll(currentView, toView);
             scene.setRoot(toView);
+
+            currentView.setTranslateX(0);
         });
 
         parallelTransition.play();

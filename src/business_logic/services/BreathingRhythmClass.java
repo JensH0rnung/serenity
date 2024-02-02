@@ -8,11 +8,8 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class BreathingRhythmClass {
 
-    private SimpleObjectProperty<BreathingRhythm> breathingRhythm = new SimpleObjectProperty<>(); // Abhängig hiervon werden Zeiten der Animation gesetzt
-
-    public BreathingRhythm getBreathingRhythm() {
-        return breathingRhythm.get();
-    }
+    // Abhängig hiervon werden Zeiten der Animation gesetzt
+    private SimpleObjectProperty<BreathingRhythm> breathingRhythm = new SimpleObjectProperty<>();
 
     public SimpleObjectProperty<BreathingRhythm> breathingRhythmProperty() {
         return breathingRhythm;

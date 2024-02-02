@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,7 @@ import java.io.IOException;
 
 public class StressSelectionController {
 
-    private StackPane root;
+    private BorderPane root;
     private App app;
     private BreathingRhythmClass breathingRhythm;
 
@@ -48,7 +49,7 @@ public class StressSelectionController {
         this.breathingRhythm = breathingRhythm;
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("StressSelectionView.fxml"));
+        loader.setLocation(getClass().getResource("StressSelection.fxml"));
         loader.setController(this);
 
         try {
@@ -66,30 +67,30 @@ public class StressSelectionController {
         chooseFirstRhythm.setOnAction(
                 (actionEvent) -> {
                     breathingRhythm.setBreathingRhythm(BreathingRhythm.FIRST);
-                    app.switchView(View.STRESS_BREATHING);
+                    app.fadeTo(View.STRESS_BREATHING);
                 }
         );
 
         chooseSecondRhythm.setOnAction(
                 (actionEvent) -> {
                     breathingRhythm.setBreathingRhythm(BreathingRhythm.SECOND);
-                    app.switchView(View.STRESS_BREATHING);
+                    app.fadeTo(View.STRESS_BREATHING);
                 }
         );
 
         chooseThirdRhythm.setOnAction(
                 (actionEvent) -> {
                     breathingRhythm.setBreathingRhythm(BreathingRhythm.THIRD);
-                    app.switchView(View.STRESS_BREATHING);
+                    app.fadeTo(View.STRESS_BREATHING);
                 }
         );
 
         homeButton.setOnAction(
-                actionevent -> app.switchView(View.INTRO)
+                actionevent -> app.fadeTo(View.INTRO)
         );
 
         leftArrowButton.setOnAction(
-                actionEvent -> app.switchView(View.STRESS_INTRO)
+                actionEvent -> app.leftSlideTo(View.STRESS_INTRO)
         );
 
         // Animations

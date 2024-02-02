@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -16,17 +15,13 @@ import java.io.IOException;
 
 public class IntroViewController {
 
+    private StackPane parentContainer;
     private App app;
 
     private FadeTransition fade1;
     private FadeTransition fade2;
     private FadeTransition fade3;
     private FadeTransition fade4;
-
-    @FXML
-    StackPane backgroundStackPane;  // parentContainer
-    @FXML
-    BorderPane introView;   // borderPaneRoot
 
     @FXML
     Label introHeaderLabel;
@@ -47,7 +42,7 @@ public class IntroViewController {
         loader.setController(this);
 
         try {
-            backgroundStackPane = loader.load();
+            parentContainer = loader.load();
         } catch (IOException e) {
             System.out.println("Fehler beim Laden der .fxml-Datei");
             throw new RuntimeException(e);
@@ -58,15 +53,15 @@ public class IntroViewController {
     public void initialize() {
 
         stressPathButton.setOnAction(
-                actionEvent -> app.switchView(View.STRESS_INTRO)
+                actionEvent -> app.fadeTo(View.STRESS_INTRO)
         );
 
         meditationPathButton.setOnAction(
-                actionEvent -> app.switchView(View.MEDITATION_INTRO)
+                actionEvent -> app.fadeTo(View.MEDITATION_INTRO)
         );
 
         motivationPathButton.setOnAction(
-                actionEvent -> app.switchView(View.MOTIVATION_INTRO)
+                actionEvent -> app.fadeTo(View.MOTIVATION_INTRO)
         );
 
         fade1 = new FadeTransition();
@@ -101,8 +96,8 @@ public class IntroViewController {
         return fadeTransition;
     }
 
-    public Pane getParentContainer() {
-        return backgroundStackPane;
+    public Pane getRoot() {
+        return parentContainer;
     }
 
 }

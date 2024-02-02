@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 
 public class StressEndController {
 
-    private StackPane root;
+    private BorderPane root;
     private App app;
 
     @FXML
@@ -46,15 +47,15 @@ public class StressEndController {
     public void initialize() {
 
         stressPathButton.setOnAction(
-                (actionEvent) -> app.switchView(View.STRESS_INTRO)
+                (actionEvent) -> app.fadeTo(View.STRESS_INTRO)
         );
 
         meditationPathButton.setOnAction(
-                (actionEvent) -> app.switchView(View.MEDITATION_INTRO)
+                (actionEvent) -> app.fadeTo(View.MEDITATION_INTRO)
         );
 
         motivationPathButton.setOnAction(
-                (actionEvent) -> app.switchView(View.MOTIVATION_INTRO)
+                (actionEvent) -> app.fadeTo(View.MOTIVATION_INTRO)
         );
 
     }

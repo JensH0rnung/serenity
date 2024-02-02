@@ -11,8 +11,7 @@
 
 <?import presentation.ui_components.BottomNavLeftHomeRight?>
 
-<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <BorderPane id="stressBreathingView" fx:id="stressBreathingView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
+   <BorderPane id="stressBreathingView" fx:id="stressBreathingView" styleClass="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
       <top>
          <Label id="stressBreathingHeaderLabel" fx:id="stressBreathingHeaderLabel" alignment="CENTER" prefWidth="390.0" text="Einatmen ..." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -40,4 +39,3 @@
          <presentation.ui_components.BottomNavLeftHomeRight fx:id="bottomNavLeftHomeRight" />
       </bottom>
    </BorderPane>
-</StackPane>
