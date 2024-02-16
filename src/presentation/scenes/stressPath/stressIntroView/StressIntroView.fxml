@@ -21,7 +21,7 @@
       <center>
          <VBox id="textContainer" fx:id="textContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="descriptionLabel" BorderPane.alignment="CENTER">
             <children>
-               <Label fx:id="firstTextLabel" alignment="CENTER" text="Im nächsten Schritt gibt dir ein Kreis das richtige Tempo vor" textAlignment="CENTER" wrapText="true">
+               <Label fx:id="firstTextLabel" alignment="CENTER" text="Im nächsten Schritt kannst du einen Atemrhythmus auswählen" textAlignment="CENTER" wrapText="true">
                   <VBox.margin>
                      <Insets bottom="40.0" left="30.0" right="30.0" top="40.0" />
                   </VBox.margin>

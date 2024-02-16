@@ -5,6 +5,7 @@ package application;
  */
 public enum View {
     INTRO,
+    CHOOSE_PATH,
     STRESS_INTRO,
     STRESS_SELECTION,
     STRESS_BREATHING,
@@ -15,6 +16,6 @@ public enum View {
     MEDITATION_END,
     MOTIVATION_INTRO,
     MOTIVATION_SELECTION,
-    MOTIVATION_EXERCISE,
+    MOTIVATION_PLAYER,
     MOTIVATION_END
 }

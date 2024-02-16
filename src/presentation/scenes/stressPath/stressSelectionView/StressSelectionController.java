@@ -1,24 +1,26 @@
 package presentation.scenes.stressPath.stressSelectionView;
 
+import application.AnimatedViews;
 import application.App;
 import application.View;
 import business_logic.data.BreathingRhythm;
 import business_logic.services.BreathingRhythmClass;
 import javafx.animation.FadeTransition;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import presentation.ui_components.BottomNavLeftHome;
 
 import java.io.IOException;
 
-public class StressSelectionController {
+public class StressSelectionController implements AnimatedViews {
 
     private BorderPane root;
     private App app;
@@ -26,6 +28,8 @@ public class StressSelectionController {
 
     private FadeTransition fade1;
     private FadeTransition fade2;
+    private FadeTransition fade3;
+    private SequentialTransition fades;
 
     @FXML
     Label stressSelectionHeaderLabel;
@@ -38,11 +42,7 @@ public class StressSelectionController {
     Button leftArrowButton;
 
     @FXML
-    Button chooseFirstRhythm;
-    @FXML
-    Button chooseSecondRhythm;
-    @FXML
-    Button chooseThirdRhythm;
+    Button chooseFirstRhythm, chooseSecondRhythm, chooseThirdRhythm;
 
     public StressSelectionController(App app, BreathingRhythmClass breathingRhythm) {
         this.app = app;
@@ -65,21 +65,21 @@ public class StressSelectionController {
         leftArrowButton = bottomNavLeftHome.getLeftArrowButton();
 
         chooseFirstRhythm.setOnAction(
-                (actionEvent) -> {
+                actionEvent -> {
                     breathingRhythm.setBreathingRhythm(BreathingRhythm.FIRST);
                     app.fadeTo(View.STRESS_BREATHING);
                 }
         );
 
         chooseSecondRhythm.setOnAction(
-                (actionEvent) -> {
+                actionEvent -> {
                     breathingRhythm.setBreathingRhythm(BreathingRhythm.SECOND);
                     app.fadeTo(View.STRESS_BREATHING);
                 }
         );
 
         chooseThirdRhythm.setOnAction(
-                (actionEvent) -> {
+                actionEvent -> {
                     breathingRhythm.setBreathingRhythm(BreathingRhythm.THIRD);
                     app.fadeTo(View.STRESS_BREATHING);
                 }
@@ -93,48 +93,48 @@ public class StressSelectionController {
                 actionEvent -> app.leftSlideTo(View.STRESS_INTRO)
         );
 
-        // Animations
-        stressSelectionHeaderLabel.setVisible(false);
-        rhythmElements.setVisible(false);
+        fade1 = createFadeTransition(stressSelectionHeaderLabel);
+        fade2 = createFadeTransition(rhythmElements);
+        fade3 = createFadeTransition(bottomNavLeftHome);
+        fades = new SequentialTransition(fade1, fade2, fade3);
+    }
 
-        fade1 = new FadeTransition();
-        fade1.setNode(stressSelectionHeaderLabel);
-        fade1.setDuration(Duration.seconds(1));
-        fade1.setFromValue(0);
-        fade1.setToValue(1);
-
-        fade2 = new FadeTransition();
-        fade2.setNode(rhythmElements);
-        fade2.setDuration(Duration.seconds(1));
-        fade2.setFromValue(0);
-        fade2.setToValue(1);
-
-        new Thread(
-                () -> {
-                    try {
-                        Thread.currentThread().sleep(100);
-                    } catch (InterruptedException e) {}
-                    fade1.play();
-                    stressSelectionHeaderLabel.setVisible(true);
-                }
-        ).start();
-
-        fade1.setOnFinished(
-                event -> {
-                    new Thread(
-                            () -> {
-                                try {
-                                    Thread.currentThread().sleep(100);
-                                } catch (InterruptedException e) {}
-                                fade2.play();
-                                rhythmElements.setVisible(true);
-                            }
-                    ).start();
-                }
-        );
+    /**
+     * Hilfsmethode um Fades zu erstellen
+     *
+     * @param node - Element, für das Fade erstellt werden soll
+     * @return - Fade Transition
+     */
+    private FadeTransition createFadeTransition(Node node) {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setNode(node);
+        fadeTransition.setDuration(Duration.seconds(0.5));
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        return fadeTransition;
     }
 
     public Pane getRoot() {
         return root;
+    }
+
+    @Override
+    public void startAnimations() {
+        fades.play();
+        showAllElements();
+    }
+
+    @Override
+    public void hideAllElements() {
+        stressSelectionHeaderLabel.setVisible(false);
+        rhythmElements.setVisible(false);
+        bottomNavLeftHome.setVisible(false);
+    }
+
+    @Override
+    public void showAllElements() {
+        stressSelectionHeaderLabel.setVisible(true);
+        rhythmElements.setVisible(true);
+        bottomNavLeftHome.setVisible(true);
     }
 }

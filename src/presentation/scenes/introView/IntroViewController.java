@@ -1,8 +1,8 @@
 package presentation.scenes.introView;
 
-import application.App;
-import application.View;
-import javafx.animation.*;
+import application.AnimatedViews;
+import javafx.animation.FadeTransition;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -13,36 +13,25 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class IntroViewController {
+public class IntroViewController implements AnimatedViews {
 
-    private StackPane parentContainer;
-    private App app;
+    private StackPane root;
 
     private FadeTransition fade1;
     private FadeTransition fade2;
-    private FadeTransition fade3;
-    private FadeTransition fade4;
+    private SequentialTransition multiFades;
 
     @FXML
-    Label introHeaderLabel;
+    Label serenityLabel, introThreeWordsLabel;
 
-    @FXML
-    Button stressPathButton;
-    @FXML
-    Button meditationPathButton;
-    @FXML
-    Button motivationPathButton;
-
-    public IntroViewController(App app) {
-
-        this.app = app;
+    public IntroViewController() {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("IntroView.fxml"));
         loader.setController(this);
 
         try {
-            parentContainer = loader.load();
+            root = loader.load();
         } catch (IOException e) {
             System.out.println("Fehler beim Laden der .fxml-Datei");
             throw new RuntimeException(e);
@@ -52,52 +41,54 @@ public class IntroViewController {
     // Automatischer Aufruf vom FXML-Loader
     public void initialize() {
 
-        stressPathButton.setOnAction(
-                actionEvent -> app.fadeTo(View.STRESS_INTRO)
-        );
-
-        meditationPathButton.setOnAction(
-                actionEvent -> app.fadeTo(View.MEDITATION_INTRO)
-        );
-
-        motivationPathButton.setOnAction(
-                actionEvent -> app.fadeTo(View.MOTIVATION_INTRO)
-        );
-
         fade1 = new FadeTransition();
-        fade1.setNode(introHeaderLabel);
-        fade1.setDuration(Duration.seconds(1));
+        fade1.setNode(serenityLabel);
+        fade1.setDuration(Duration.seconds(1));  // bewusst länger
         fade1.setFromValue(0);
         fade1.setToValue(1);
 
         // Erstellt Fades für Buttons
-        fade2 = createFadeTransition(stressPathButton);
-        fade3 = createFadeTransition(meditationPathButton);
-        fade4 = createFadeTransition(motivationPathButton);
+        fade2 = createFadeTransition(introThreeWordsLabel);
 
         // Elemente werden nacheinander eingefadet
-        SequentialTransition multiFades = new SequentialTransition(fade1, fade2, fade3, fade4);
-        multiFades.play();
+        multiFades = new SequentialTransition(fade1, fade2);
     }
 
     /**
      * Erstellt Fade-Animations für einzelne Buttons
      *
-     * @param button - Button, für den Animation erstellt werden soll
+     * @param label - Label, für den Animation erstellt werden soll
      * @return - konfigurierte Animation
      */
-    private FadeTransition createFadeTransition(Button button) {
+    private FadeTransition createFadeTransition(Label label) {
         FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setNode(button);
-        fadeTransition.setDuration(Duration.seconds(0.3));
+        fadeTransition.setNode(label);
+        fadeTransition.setDuration(Duration.seconds(0.3));  // bewusst kürzer
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
 
         return fadeTransition;
     }
 
-    public Pane getRoot() {
-        return parentContainer;
+    @Override
+    public void startAnimations() {
+        multiFades.play();
+        showAllElements();
     }
 
+    @Override
+    public void hideAllElements() {
+        serenityLabel.setVisible(false);
+        introThreeWordsLabel.setVisible(false);
+    }
+
+    @Override
+    public void showAllElements() {
+        serenityLabel.setVisible(true);
+        introThreeWordsLabel.setVisible(true);
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
 }

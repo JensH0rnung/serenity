@@ -1,5 +1,6 @@
 package presentation.scenes.stressPath.stressBreathingView;
 
+import application.AnimatedViews;
 import application.App;
 import application.View;
 import business_logic.services.BreathingRhythmClass;
@@ -11,14 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import presentation.ui_components.BottomNavLeftHomeRight;
 
 import java.io.IOException;
 
-public class StressBreathingController {
+public class StressBreathingController implements AnimatedViews {
 
     private BorderPane root;
     private App app;
@@ -87,13 +87,13 @@ public class StressBreathingController {
                     System.out.println("Dauer einatmen - " + circGrow.getDuration());
                     System.out.println("Dauer ausatmen - " + circShrink.getDuration());
                     circGrow.play();
-                    Platform.runLater(
-                            () -> {
+//                    Platform.runLater(
+//                            () -> {
                                 stressBreathingHeaderLabel.setVisible(true);
                                 startAnimationButton.setDisable(true);
-                                startAnimationButton.setOpacity(0);
-                            }
-                    );
+                                startAnimationButton.setVisible(false);
+//                            }
+//                    );
                 }
         );
 
@@ -161,5 +161,20 @@ public class StressBreathingController {
 
     public Pane getRoot() {
         return root;
+    }
+
+    @Override
+    public void startAnimations() {
+
+    }
+
+    @Override
+    public void hideAllElements() {
+
+    }
+
+    @Override
+    public void showAllElements() {
+
     }
 }

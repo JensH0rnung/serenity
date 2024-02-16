@@ -1,20 +1,23 @@
 package application;
-import business_logic.services.SoundManager;
+import business_logic.services.FileManager;
 import business_logic.services.BreathingRhythmClass;
-import business_logic.services.SoundPlayer;
+import business_logic.services.Player;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import presentation.scenes.choosePathView.ChoosePathController;
 import presentation.scenes.introView.IntroViewController;
 import presentation.scenes.meditationPath.meditationEndView.MeditationEndController;
 import presentation.scenes.meditationPath.meditationIntroView.MeditationIntroController;
-import presentation.scenes.meditationPath.meditationPlayerView.MeditationPlayerViewController;
-import presentation.scenes.meditationPath.meditationSoundSelectionVIew.MeditationSelectionController;
+import presentation.scenes.meditationPath.meditationPlayerView.MeditationPlayerController;
+import presentation.scenes.meditationPath.meditationSelectionVIew.MeditationSelectionController;
 import presentation.scenes.motivationPath.motivationEndView.MotivationEndController;
 import presentation.scenes.motivationPath.motivationIntroView.MotivationIntroController;
+import presentation.scenes.motivationPath.motivationPlayerView.MotivationPlayerController;
+import presentation.scenes.motivationPath.motivationSelection.MotivationSelectionController;
 import presentation.scenes.stressPath.stressBreathingView.StressBreathingController;
 import presentation.scenes.stressPath.stressEndView.StressEndController;
 import presentation.scenes.stressPath.stressIntroView.StressIntroController;
@@ -26,16 +29,18 @@ import java.util.HashMap;
 public class App extends Application {
 
     private Scene scene;
-    private Stage primaryStage;
     private Pane root;
     private View defaultView;
-    private HashMap<View, Pane> primaryViews;
+    private AnimatedViews nextController;
+    private HashMap<View, Pane> views;
+    private HashMap<View, AnimatedViews> viewControllers;
 
     BreathingRhythmClass breathingRhythm;
-    SoundPlayer soundPlayer;
-    SoundManager soundManager;
+    Player player;
+    FileManager fileManager;
 
     private Pane introView;
+    private Pane choosePathView;
 
     private Pane stressIntroView;
     private Pane stressSelectionView;
@@ -48,8 +53,8 @@ public class App extends Application {
     private Pane meditationEndView;
 
     private Pane motivationIntroView;
-    private Pane motivationSelectExerciseView;
-    private Pane motivationExerciseDetailView;
+    private Pane motivationSelectView;
+    private Pane motivationPlayerView;
     private Pane motivationEndView;
 
     /**
@@ -58,78 +63,99 @@ public class App extends Application {
     @Override
     public void init() {
 
-        soundPlayer = new SoundPlayer();
-        soundManager = new SoundManager();
+        player = new Player();
+        fileManager = new FileManager();
 
         // Ermöglicht Zugriff auf DurationProperty der CircleAnimation
         breathingRhythm = new BreathingRhythmClass();
 
-        defaultView = View.MEDITATION_PLAYER;
-        System.out.println("defaultView - " + defaultView);
-        primaryViews = new HashMap<>();
+        defaultView = View.INTRO;
+
+        // Zum speichern aller Views
+        views = new HashMap<>();
+        // Zum speichern aller Controller
+        viewControllers = new HashMap<>();
 
         /*
          Übergabe dieser Klasse an Controller, damit switchView aufgerufen werden kann
          Sinnvoll oder andere Implementierung?
          */
 
-        IntroViewController introViewController = new IntroViewController(this);
+        IntroViewController introViewController = new IntroViewController();
         introView = introViewController.getRoot();
-        primaryViews.put(View.INTRO, introView);
+        views.put(View.INTRO, introView);
+        viewControllers.put(View.INTRO, introViewController);
+
+        ChoosePathController choosePathController = new ChoosePathController(this);
+        choosePathView = choosePathController.getRoot();
+        views.put(View.CHOOSE_PATH, choosePathView);
+        viewControllers.put(View.CHOOSE_PATH, choosePathController);
 
         // StressPath
         StressIntroController stressIntroController = new StressIntroController(this);
         stressIntroView = stressIntroController.getRoot();
-        primaryViews.put(View.STRESS_INTRO, stressIntroView);
+        views.put(View.STRESS_INTRO, stressIntroView);
+        viewControllers.put(View.STRESS_INTRO, stressIntroController);
 
         StressSelectionController stressSelectionController = new StressSelectionController(this, breathingRhythm);
         stressSelectionView = stressSelectionController.getRoot();
-        primaryViews.put(View.STRESS_SELECTION, stressSelectionView);
+        views.put(View.STRESS_SELECTION, stressSelectionView);
+        viewControllers.put(View.STRESS_SELECTION, stressSelectionController);
 
         StressBreathingController stressBreathingController = new StressBreathingController(this, breathingRhythm);
         stressBreathingView = stressBreathingController.getRoot();
-        primaryViews.put(View.STRESS_BREATHING, stressBreathingView);
+        views.put(View.STRESS_BREATHING, stressBreathingView);
 
         StressEndController stressEndController = new StressEndController(this);
         stressEndView = stressEndController.getRoot();
-        primaryViews.put(View.STRESS_END, stressEndView);
+        views.put(View.STRESS_END, stressEndView);
+        viewControllers.put(View.STRESS_END, stressEndController);
 
         // MeditationPath
         MeditationIntroController meditationIntroController = new MeditationIntroController(this);
         meditationIntroView = meditationIntroController.getRoot();
-        primaryViews.put(View.MEDITATION_INTRO, meditationIntroView);
+        views.put(View.MEDITATION_INTRO, meditationIntroView);
+        viewControllers.put(View.MEDITATION_INTRO, meditationIntroController);
 
-        MeditationSelectionController meditationSelectionController = new MeditationSelectionController(this, soundPlayer, soundManager);
+        MeditationSelectionController meditationSelectionController = new MeditationSelectionController(this, player, fileManager);
         meditationSelectSoundView = meditationSelectionController.getRoot();
-        primaryViews.put(View.MEDITATION_SELECTION, meditationSelectSoundView);
+        views.put(View.MEDITATION_SELECTION, meditationSelectSoundView);
+        viewControllers.put(View.MEDITATION_SELECTION, meditationSelectionController);
 
-        MeditationPlayerViewController meditationPlayerViewController = new MeditationPlayerViewController(this, soundPlayer, soundManager, meditationSelectionController);
-        meditationPlayerView = meditationPlayerViewController.getRoot();
-        primaryViews.put(View.MEDITATION_PLAYER, meditationPlayerView);
+        MeditationPlayerController meditationPlayerController = new MeditationPlayerController(this, player, meditationSelectionController);
+        meditationPlayerView = meditationPlayerController.getRoot();
+        views.put(View.MEDITATION_PLAYER, meditationPlayerView);
 
-        MeditationEndController meditationPathEndController = new MeditationEndController(this);
-        meditationEndView = meditationPathEndController.getRoot();
-        primaryViews.put(View.MEDITATION_END, meditationEndView);
+        MeditationEndController meditationEndController = new MeditationEndController(this);
+        meditationEndView = meditationEndController.getRoot();
+        views.put(View.MEDITATION_END, meditationEndView);
+        viewControllers.put(View.MEDITATION_END, meditationEndController);
 
         // MotivationPath
         MotivationIntroController motivationIntroController = new MotivationIntroController(this);
         motivationIntroView = motivationIntroController.getRoot();
-        primaryViews.put(View.MOTIVATION_INTRO, motivationIntroView);
+        views.put(View.MOTIVATION_INTRO, motivationIntroView);
+        viewControllers.put(View.MOTIVATION_INTRO, motivationIntroController);
 
-        // MotivationSelect
+        MotivationSelectionController motivationSelectionController = new MotivationSelectionController(this, player, fileManager);
+        motivationSelectView = motivationSelectionController.getRoot();
+        views.put(View.MOTIVATION_SELECTION, motivationSelectView);
+        viewControllers.put(View.MOTIVATION_SELECTION, motivationSelectionController);
 
-        // MotivationExercise
+        MotivationPlayerController motivationPlayerController = new MotivationPlayerController(this, player, motivationSelectionController);
+        motivationPlayerView = motivationPlayerController.getRoot();
+        views.put(View.MOTIVATION_PLAYER, motivationPlayerView);
 
         MotivationEndController motivationEndController = new MotivationEndController(this);
         motivationEndView = motivationEndController.getRoot();
-        primaryViews.put(View.MOTIVATION_END, motivationEndView);
+        views.put(View.MOTIVATION_END, motivationEndView);
+        viewControllers.put(View.MOTIVATION_END, motivationEndController);
     }
 
     @Override
     public void start(Stage primaryStage) {
 
-        this.primaryStage = primaryStage;
-        root = primaryViews.get(defaultView);
+        root = views.get(defaultView);
 
         // Displaygröße iPhone 13 / 14
         scene = new Scene(root, 390, 844);
@@ -137,6 +163,7 @@ public class App extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Serenity");
+//        fadeTo(defaultView);
         primaryStage.show();
     }
 
@@ -147,7 +174,13 @@ public class App extends Application {
      */
     public void fadeTo(View nextView) {
         Pane currentPane = (Pane) scene.getRoot();
-        Pane nextPane = primaryViews.get(nextView);
+        Pane nextPane = views.get(nextView);
+
+        nextController = viewControllers.get(nextView);
+        // nur bei animierten Views
+        if(nextController != null) {
+            nextController.hideAllElements();
+        }
 
         startFadeAnimation(scene, currentPane, nextPane);
     }
@@ -159,7 +192,12 @@ public class App extends Application {
      */
     public void rightSlideTo(View nextView) {
         Pane currentPane = (Pane) scene.getRoot();
-        Pane nextPane = primaryViews.get(nextView);
+        Pane nextPane = views.get(nextView);
+
+        System.out.println("nextView - " + nextView);
+        nextController = viewControllers.get(nextView);
+        System.out.println("nextController - "+ nextController);
+        nextController.hideAllElements();
 
         startRightSlideAnimation(scene, currentPane, nextPane);
     }
@@ -171,13 +209,20 @@ public class App extends Application {
      */
     public void leftSlideTo(View nextView) {
         Pane currentPane = (Pane) scene.getRoot();
-        Pane nextPane = primaryViews.get(nextView);
+        Pane nextPane = views.get(nextView);
+
+        nextController = viewControllers.get(nextView);
+        nextController.hideAllElements();
 
         startLeftSlideAnimation(scene, currentPane, nextPane);
     }
 
     /**
      * Definition und Ausführung der FadeTransition
+     *
+     * @param scene
+     * @param currentView - View, der verlassen wird
+     * @param toView - View, der eingefadet wird
      */
     public void startFadeAnimation(Scene scene, Pane currentView, Pane toView) {
         // Hilfs-StackPane erzeugen
@@ -207,6 +252,10 @@ public class App extends Application {
                 actionEvent -> {
                     helpPane.getChildren().removeAll(currentView, toView);
                     scene.setRoot(toView);
+
+                    if(nextController != null) {
+                        nextController.startAnimations();
+                    }
                 }
         );
 
@@ -249,6 +298,7 @@ public class App extends Application {
             scene.setRoot(toView);
 
             currentView.setTranslateX(0);
+            nextController.startAnimations();
         });
 
         parallelTransition.play();
@@ -290,6 +340,7 @@ public class App extends Application {
             scene.setRoot(toView);
 
             currentView.setTranslateX(0);
+            nextController.startAnimations();
         });
 
         parallelTransition.play();

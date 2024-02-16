@@ -1,23 +1,9 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-/* Custom Font funktioniert bisher nicht */
-/* @font-face {
-    src: url('assets/Fonts/OpenSans-Light.ttf');
-} */
-
-/* * {
-    -fx-font-family: 'Open Sans', sans-serif;
-    -fx-font-family: 'Open Sans';
-} */
-
 * {
     -fx-text-fill: white;
     -fx-font-family: 'Trebuchet MS';
 }
-
-/* .background {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(5, 40, 129, 0.491), #5373f5b3);
-} */
 
 .root {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(5, 40, 129, 0.491), #5373f5b3);
@@ -25,6 +11,15 @@
 
 #helpPane {
     -fx-background-color: lightblue;
+}
+
+#serenityLabel {
+    -fx-font-size: 65;
+    -fx-font-family: 'Times New Roman' !important;
+}
+
+#introThreeWordsLabel {
+    -fx-font-size: 24;
 }
 
 #gridScrollPane {
@@ -92,16 +87,15 @@ Button {
 }
 
 .firstRhythmColor {
-    -fx-fill: linear-gradient(to bottom, #00FACC 0%, #28C7AA),#D9D9D9;
+    -fx-fill: linear-gradient(to bottom, #8CF8FF, #2FB8C1);
 }
 
 .secondRhythmColor {
-    -fx-fill:#34F7C3;
-    -fx-fill:#4fc4af;
+    -fx-fill: linear-gradient(to bottom, #00FACC, #2CBAA0);
 }
 
 .thirdRhythmColor {
-
+    -fx-fill: linear-gradient(to bottom, #8CFFC8, #62CF47);
 }
 
 #startAnimationButton {
@@ -123,4 +117,14 @@ Button {
 #sleepTimer > MenuItem {
     -fx-background-color: red;
     -fx-text-fill: black;
+}
+
+.subVidLabel {
+    -fx-text-fill: black;
+}
+
+#startVideoButton {
+    -fx-font-size: 20;
+    -fx-text-fill: black;
+    -fx-background-color: grey;
 }

@@ -21,21 +21,21 @@
       <center>
          <VBox id="textContainer" fx:id="textContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="descriptionLabel" BorderPane.alignment="CENTER">
             <children>
-               <Label fx:id="firstTextLabel" alignment="CENTER" text="Im nächsten Schritt wird dir eine Übung gezeigt ..." textAlignment="CENTER" wrapText="true">
+               <Label fx:id="firstTextLabel" alignment="CENTER" text="Im nächsten Schritt kannst du eine Aktivität auswählen" textAlignment="CENTER" wrapText="true">
                   <!-- Margin angepasst, damit Text besser aussieht -->
                   <VBox.margin>
-                     <Insets bottom="40.0" left="50.0" right="50.0" top="40.0" />
+                     <Insets bottom="40.0" left="70.0" right="70.0" top="40.0" />
                   </VBox.margin>
                </Label>
-               <Label fx:id="secondTextLabel" alignment="CENTER" text="Stehe nun auf und mache die Bewegung nach ..." textAlignment="CENTER" wrapText="true">
+               <Label fx:id="secondTextLabel" alignment="CENTER" text="Danach wirst du ein beispielhaftes Video sehen" textAlignment="CENTER" wrapText="true">
                   <!-- Margin angepasst, damit Text besser aussieht -->
                   <VBox.margin>
-                     <Insets bottom="40.0" left="50.0" right="50.0" top="40.0" />
+                     <Insets bottom="40.0" left="70.0" right="70.0" top="40.0" />
                   </VBox.margin>
                </Label>
-               <Label fx:id="thirdTextLabel" alignment="CENTER" text="Wenn du eine andere Übung ausführen willst, []" textAlignment="CENTER" wrapText="true">
+               <Label fx:id="thirdTextLabel" alignment="CENTER" text="Starte die Aktivität und du wirst motivierter sein" textAlignment="CENTER" wrapText="true">
                   <VBox.margin>
-                     <Insets bottom="40.0" left="30.0" right="30.0" top="40.0" />
+                     <Insets bottom="40.0" left="70.0" right="70.0" top="40.0" />
                   </VBox.margin>
                </Label>
             </children>

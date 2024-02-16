@@ -1,43 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" styleClass="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" stylesheets="@../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <BorderPane id="introView" fx:id="introView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
-      <top>
-         <Label id="introHeaderLabel" fx:id="introHeaderLabel" alignment="CENTER" text="Wie kann ich helfen?" BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-               <Insets top="120.0" />
-            </BorderPane.margin>
-            <styleClass>
-               <String fx:value="headerLabel" />
-               <String fx:value="bigHeaderLabel" />
-            </styleClass>
-         </Label>
-      </top>
+<StackPane id="backgroundStackPane" fx:id="backgroundStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0" styleClass="background" stylesheets="@../../../application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <BorderPane id="introView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="390.0">
       <center>
-         <VBox id="pathButtonsContainer" fx:id="pathButtonsContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <VBox id="pathButtonsContainer" fx:id="labelContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-               <Button id="stressPathButton" fx:id="stressPathButton" mnemonicParsing="false" prefHeight="70.0" prefWidth="300.0" text="Stressabbau">
+               <Label id="serenityLabel" fx:id="serenityLabel" alignment="CENTER" styleClass="test" text="SERENITY" textAlignment="CENTER" />
+               <Line id="introLabelDivider" fx:id="introLabelDivider" endX="120.5" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0">
                   <VBox.margin>
-                     <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
-                  </VBox.margin></Button>
-               <Button id="meditationPathButton" fx:id="meditationPathButton" mnemonicParsing="false" prefHeight="70.0" prefWidth="300.0" text="Entspannung">
-                  <VBox.margin>
-                     <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
+                     <Insets bottom="15.0" top="15.0" />
                   </VBox.margin>
-               </Button>
-               <Button id="motivationPathButton" fx:id="motivationPathButton" mnemonicParsing="false" prefHeight="70.0" prefWidth="300.0" text="Motivation">
-                  <VBox.margin>
-                     <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
-                  </VBox.margin>
-               </Button>
+               </Line>
+               <Label id="introThreeWordsLabel" fx:id="introThreeWordsLabel" alignment="CENTER" text="calm - peaceful - untroubled" textAlignment="CENTER" />
             </children>
          </VBox>
       </center>
