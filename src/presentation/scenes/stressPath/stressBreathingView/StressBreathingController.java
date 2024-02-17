@@ -81,6 +81,8 @@ public class StressBreathingController implements AnimatedViews {
                         oldColor = oldRhythm.getColor();
                         breathingCircle.getStyleClass().remove(oldColor);
                     }
+
+                    oldColor = newColor;
                 })
         );
 

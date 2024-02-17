@@ -70,7 +70,7 @@ public class App extends Application {
         // Ermöglicht Zugriff auf DurationProperty der CircleAnimation
         breathingRhythm = new BreathingRhythmClass();
 
-        defaultView = View.INTRO;
+        defaultView = View.STRESS_SELECTION;
 
         // Zum speichern aller Views
         views = new HashMap<>();
