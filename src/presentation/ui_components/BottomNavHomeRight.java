@@ -34,14 +34,7 @@ public class BottomNavHomeRight extends AnchorPane {
         homeButton.setId("homeButton");
         rightArrowButton.setId("rightArrowButton");
 
-        Image homeButtonImage = new Image("assets/icons/homeIcon.png");
-        ImageView homeButtonIcon = new ImageView(homeButtonImage);
-        homeButton.setGraphic(homeButtonIcon);
         homeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-
-        Image rightArrowButtonImage = new Image("assets/icons/rightArrowIcon.png");
-        ImageView rightArrowButtonIcon = new ImageView(rightArrowButtonImage);
-        rightArrowButton.setGraphic(rightArrowButtonIcon);
         rightArrowButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
         // Animation für rightArrowButton
@@ -50,8 +43,7 @@ public class BottomNavHomeRight extends AnchorPane {
         translate.setDuration(Duration.seconds(1));
         translate.setCycleCount(Animation.INDEFINITE);
         translate.setAutoReverse(true);
-//        translate.setNode(rightArrowButton);
-        translate.setNode(rightArrowButtonIcon);    // denke, dass sich nur Icon verschiebt is sinnvoller
+        translate.setNode(rightArrowButton);
         translate.play();
     }
 

@@ -110,11 +110,17 @@ public class StressBreathingController implements AnimatedViews {
         );
 
         homeButton.setOnAction(
-                actionevent -> app.fadeTo(View.CHOOSE_PATH)
+                actionevent -> {
+                    app.fadeTo(View.CHOOSE_PATH);
+                    resetBreathingCircle();
+                }
         );
 
         rightArrowButton.setOnAction(
-                actionEvent -> app.rightSlideTo(View.STRESS_END)
+                actionEvent -> {
+                    app.rightSlideTo(View.STRESS_END);
+                    resetBreathingCircle();
+                }
         );
 
         // Animation, die den Kreis wachsen lässt
@@ -153,11 +159,10 @@ public class StressBreathingController implements AnimatedViews {
     }
 
     private void resetBreathingCircle() {
-
         // wartet mit dem Reset bis Elemente ausgefadet sind
         // 500ms = Dauer des Fade-Outs
-        PauseTransition pause = new PauseTransition(Duration.millis(500));
-        pause.setOnFinished(
+        PauseTransition resetAfterDelay = new PauseTransition(Duration.millis(500));
+        resetAfterDelay.setOnFinished(
                 event -> {
                     circGrow.stop();
                     circShrink.stop();
@@ -169,7 +174,7 @@ public class StressBreathingController implements AnimatedViews {
                     startAnimationButton.setDisable(false);
                 }
         );
-        pause.play();
+        resetAfterDelay.play();
     }
 
     public Pane getRoot() {

@@ -66,7 +66,7 @@ public class StressIntroController implements AnimatedViews {
         rightArrowButton = bottomNavHomeRight.getRightArrowButton();
 
         homeButton.setOnAction(
-                actionevent -> app.fadeTo(View.INTRO)
+                actionevent -> app.fadeTo(View.CHOOSE_PATH)
         );
 
         rightArrowButton.setOnAction(

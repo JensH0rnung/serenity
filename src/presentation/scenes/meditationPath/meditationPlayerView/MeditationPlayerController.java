@@ -3,6 +3,7 @@ package presentation.scenes.meditationPath.meditationPlayerView;
 import application.App;
 import application.View;
 import business_logic.services.Player;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import presentation.scenes.meditationPath.meditationSelectionVIew.MeditationSelectionController;
 import presentation.ui_components.BottomNavLeftHomeRight;
 
@@ -61,21 +63,6 @@ public class MeditationPlayerController {
 
     public void initialize() {
 
-        // Setzen der Icons
-        ImageView sleepIcon = new ImageView(new Image("assets/icons/sleepIcon30.png"));
-        ImageView sleepActive = new ImageView(new Image("assets/icons/sleepActive30.png"));
-        ImageView playIcon = new ImageView(new Image("assets/icons/playIcon60.png"));
-        ImageView pauseIcon = new ImageView(new Image("assets/icons/pauseIcon60.png"));
-        ImageView repeatIcon = new ImageView(new Image("assets/icons/repeatIcon30.png"));
-        ImageView repeatActive = new ImageView(new Image("assets/icons/repeatActive30.png"));
-        ImageView muteIcon = new ImageView(new Image("assets/icons/muteIcon25.png"));
-        ImageView muteActive = new ImageView(new Image("assets/icons/muteActive25.png"));
-
-        sleepTimer.setGraphic(sleepIcon);
-        playButton.setGraphic(playIcon);
-        repeatButton.setGraphic(repeatIcon);
-        muteButton.setGraphic(muteIcon);
-
         sleepTimer.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         playButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         muteButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -100,11 +87,11 @@ public class MeditationPlayerController {
                 actionEvent -> {
                     if(player.isPlaying()) {
                         player.pause();
-                        playButton.setGraphic(playIcon);
+                        playButton.setId("playButton");
                     }
                     else {
                         player.play();
-                        playButton.setGraphic(pauseIcon);
+                        playButton.setId("pauseButton");
                     }
                 }
         );
@@ -132,9 +119,9 @@ public class MeditationPlayerController {
         player.onRepeatProperty().addListener(
                 (obs, oldVal, newVal) -> {
                     if(newVal) {
-                        repeatButton.setGraphic(repeatActive);
+                        repeatButton.getStyleClass().add("active");
                     } else {
-                        repeatButton.setGraphic(repeatIcon);
+                        repeatButton.getStyleClass().remove("active");
                     }
                 }
         );
@@ -142,9 +129,9 @@ public class MeditationPlayerController {
         player.mutedProperty().addListener(
                 (obs, oldVal, newVal) -> {
                     if(newVal) {
-                        muteButton.setGraphic(muteActive);
+                        muteButton.getStyleClass().add("active");
                     } else {
-                        muteButton.setGraphic(muteIcon);
+                        muteButton.getStyleClass().remove("active");
                     }
                 }
         );
@@ -152,17 +139,17 @@ public class MeditationPlayerController {
         player.playStateProperty().addListener(
                 (obs, oldVal, newVal) -> {
                     if(newVal) {
-                        playButton.setGraphic(pauseIcon);
+                        playButton.setId("pauseButton");
                     }
                     else {
-                        playButton.setGraphic(playIcon);
+                        playButton.setId("playButton");
                     }
                 }
         );
 
         // Zurücksetzen des PlayIcons
         player.actMediaProperty().addListener(
-                (observableValue, oldSound, newSound) -> playButton.setGraphic(playIcon)
+                (observableValue, oldSound, newSound) -> playButton.setId("playButton")
         );
 
         // Nav
@@ -174,20 +161,31 @@ public class MeditationPlayerController {
 //                actionevent -> app.leftSlideTo(View.MEDITATION_SELECTION)
                 actionevent -> {
                     app.fadeTo(View.MEDITATION_SELECTION);
-                    player.reset();
+                    resetPlayer();
                 }
         );
 
         homeButton.setOnAction(
                 actionevent -> {
-                    app.fadeTo(View.INTRO);
-                    player.reset();
+                    app.fadeTo(View.CHOOSE_PATH);
+                    resetPlayer();
                 }
         );
 
         rightArrowButton.setOnAction(
-                actionEvent -> app.rightSlideTo(View.MEDITATION_END)
+                actionEvent -> {
+                    app.rightSlideTo(View.MEDITATION_END);
+                    resetPlayer();
+                }
         );
+    }
+
+    private void resetPlayer() {
+        PauseTransition resetAfterDelay = new PauseTransition(Duration.seconds(0.5));
+        resetAfterDelay.setOnFinished(
+                event -> player.reset()
+        );
+        resetAfterDelay.play();
     }
 
     /**

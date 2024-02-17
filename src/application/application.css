@@ -74,17 +74,53 @@ Button {
     -fx-background-position: center;
 }
 
-#homeButton {
-    /* Warum funktioniert das nicht? */
-    /* -fx-background-image: url("/Users/jens/IdeaProjects/Serenity_App/src/presentation/ui_components/homeIcon.png");
-    -fx-background-image: url("homeIcon.png");
-    -fx-background-image: url("src/presentation/ui_components/homeIcon.png");
-    -fx-background-image: url("presentation/ui_components/homeIcon.png"); */
+#leftArrowButton {
+    -fx-graphic: url("/assets/icons/leftArrowIcon.png");
 }
 
-/* #firstRhythmCircle:hover, #secondRhythmCircle:hover, #thirdRhythmCircle:hover {
-    -fx-fill: rgba(0, 0, 0, 0.100);
-} */
+#homeButton {
+    -fx-graphic: url("/assets/icons/homeIcon.png");
+}
+
+#rightArrowButton {
+    -fx-graphic: url("/assets/icons/rightArrowIcon.png");
+}
+
+#sleepTimer {
+    -fx-graphic: url("/assets/icons/sleepIcon30.png");
+}
+
+#playButton {
+    -fx-graphic: url("/assets/icons/playIcon60.png");
+}
+
+#playButton:hover {
+    -fx-graphic: url("/assets/icons/playIconHover.png");
+}
+
+#pauseButton {
+    -fx-graphic: url("/assets/icons/pauseIcon60.png");
+}
+
+#pauseButton:hover {
+    -fx-graphic: url("/assets/icons/pauseIconHover.png");
+}
+
+#repeatButton {
+    -fx-graphic: url("/assets/icons/repeatIcon30.png");
+}
+
+#repeatButton.active {
+    -fx-graphic: url("/assets/icons/repeatActive30.png");
+}
+
+#muteButton {
+    -fx-graphic: url("/assets/icons/muteIcon25.png");
+}
+
+#muteButton.active {
+    -fx-graphic: url("/assets/icons/muteActive25.png");
+}
 
 .chooseRhythmButton:hover {
     -fx-background-radius: 50%;

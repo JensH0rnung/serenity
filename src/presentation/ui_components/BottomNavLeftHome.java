@@ -37,14 +37,7 @@ public class BottomNavLeftHome extends AnchorPane {
         leftArrowButton.setId("leftArrowButton");
         homeButton.setId("homeButton");
 
-        Image leftArrowButtonImage = new Image("assets/icons/leftArrowIcon.png");
-        ImageView leftArrowButtonIcon = new ImageView(leftArrowButtonImage);
-        leftArrowButton.setGraphic(leftArrowButtonIcon);
         leftArrowButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-
-        Image homeButtonImage = new Image("assets/icons/homeIcon.png");
-        ImageView homeButtonIcon = new ImageView(homeButtonImage);
-        homeButton.setGraphic(homeButtonIcon);
         homeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
 

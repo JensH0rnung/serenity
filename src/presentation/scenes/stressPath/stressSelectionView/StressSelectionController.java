@@ -86,7 +86,7 @@ public class StressSelectionController implements AnimatedViews {
         );
 
         homeButton.setOnAction(
-                actionevent -> app.fadeTo(View.INTRO)
+                actionevent -> app.fadeTo(View.CHOOSE_PATH)
         );
 
         leftArrowButton.setOnAction(

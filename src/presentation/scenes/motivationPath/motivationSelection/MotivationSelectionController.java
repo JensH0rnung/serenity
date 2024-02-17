@@ -78,7 +78,7 @@ public class MotivationSelectionController implements AnimatedViews {
         leftArrowButton = bottomNavLeftHome.getLeftArrowButton();
 
         homeButton.setOnAction(
-                actionevent -> app.fadeTo(View.INTRO)
+                actionevent -> app.fadeTo(View.CHOOSE_PATH)
         );
 
         leftArrowButton.setOnAction(

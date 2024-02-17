@@ -3,6 +3,7 @@ package presentation.scenes.motivationPath.motivationPlayerView;
 import application.App;
 import application.View;
 import business_logic.services.Player;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 import presentation.scenes.motivationPath.motivationSelection.MotivationSelectionController;
 import presentation.ui_components.BottomNavLeftHomeRight;
 
@@ -81,32 +83,35 @@ public class MotivationPlayerController {
 //                actionevent -> app.leftSlideTo(View.MEDITATION_SELECTION)
                 actionevent -> {
                     app.fadeTo(View.MOTIVATION_SELECTION);
-                    player.reset();
-                    resetStartButton();
+                    resetPlayer();
                 }
         );
 
         homeButton.setOnAction(
                 actionevent -> {
-                    app.fadeTo(View.INTRO);
-                    player.reset();
-                    resetStartButton();
+                    app.fadeTo(View.CHOOSE_PATH);
+                    resetPlayer();
                 }
         );
 
         rightArrowButton.setOnAction(
                 actionEvent -> {
                     app.rightSlideTo(View.MOTIVATION_END);
-                    player.reset();
-                    resetStartButton();
+                    resetPlayer();
                 }
         );
     }
 
-
-    private void resetStartButton() {
-        startVideoButton.setDisable(false);
-        startVideoButton.setVisible(true);
+    private void resetPlayer() {
+        PauseTransition resetAfterDelay = new PauseTransition(Duration.seconds(0.5));
+        resetAfterDelay.setOnFinished(
+                event -> {
+                    player.reset();
+                    startVideoButton.setDisable(false);
+                    startVideoButton.setVisible(true);
+                }
+        );
+        resetAfterDelay.play();
     }
 
     public Pane getRoot() {
