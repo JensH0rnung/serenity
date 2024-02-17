@@ -29,8 +29,8 @@ public class StressBreathingController implements AnimatedViews {
 
     private int breathInDuration;
     private int breathOutDuration;
-    private String color;
-//    private double circlradius
+    private String newColor;
+    private String oldColor;
 
     @FXML
     Label stressBreathingHeaderLabel;
@@ -67,14 +67,20 @@ public class StressBreathingController implements AnimatedViews {
 
         // Durations der Animationen werden abhängig vom Property gesetzt
         breathingRhythm.breathingRhythmProperty().addListener(
-                ((observableValue, oldV, selectedRhythm) -> {
+                ((observableValue, oldRhythm, selectedRhythm) -> {
                     breathInDuration = selectedRhythm.getBreathInDuration();
                     breathOutDuration = selectedRhythm.getBreathOutDuration();
-                    color = selectedRhythm.getColor();
 
-                    breathingCircle.getStyleClass().add(color);
                     circGrow.setDuration(Duration.seconds(breathInDuration));
                     circShrink.setDuration(Duration.seconds(breathOutDuration));
+
+                    newColor = selectedRhythm.getColor();
+                    breathingCircle.getStyleClass().add(newColor);
+
+                    if(oldColor != null) {
+                        oldColor = oldRhythm.getColor();
+                        breathingCircle.getStyleClass().remove(oldColor);
+                    }
                 })
         );
 
@@ -83,17 +89,10 @@ public class StressBreathingController implements AnimatedViews {
         // Startet Animation und versteckt Button
         startAnimationButton.setOnMouseClicked(
                 actionevent -> {
-                    // Test
-                    System.out.println("Dauer einatmen - " + circGrow.getDuration());
-                    System.out.println("Dauer ausatmen - " + circShrink.getDuration());
                     circGrow.play();
-//                    Platform.runLater(
-//                            () -> {
-                                stressBreathingHeaderLabel.setVisible(true);
-                                startAnimationButton.setDisable(true);
-                                startAnimationButton.setVisible(false);
-//                            }
-//                    );
+                    stressBreathingHeaderLabel.setVisible(true);
+                    startAnimationButton.setDisable(true);
+                    startAnimationButton.setVisible(false);
                 }
         );
 
@@ -102,15 +101,14 @@ public class StressBreathingController implements AnimatedViews {
         rightArrowButton = bottomNavLeftHomeRight.getRightArrowButton();
 
         leftArrowButton.setOnAction(
-//                actionevent -> app.fadeTo(View.STRESS_SELECTION)
                 actionevent -> {
                     app.fadeTo(View.STRESS_SELECTION);
-                    resetBreathingAnimation();
+                    resetBreathingCircle();
                 }
         );
 
         homeButton.setOnAction(
-                actionevent -> app.fadeTo(View.INTRO)
+                actionevent -> app.fadeTo(View.CHOOSE_PATH)
         );
 
         rightArrowButton.setOnAction(
@@ -152,11 +150,24 @@ public class StressBreathingController implements AnimatedViews {
         );
     }
 
-    private void resetBreathingAnimation() {
-        circGrow.stop();
-        circShrink.stop();
-        // reset circle attributes
-        // show & activate start-button in circle
+    private void resetBreathingCircle() {
+
+        // wartet mit dem Reset bis Elemente ausgefadet sind
+        // 500ms = Dauer des Fade-Outs
+        PauseTransition pause = new PauseTransition(Duration.millis(500));
+        pause.setOnFinished(
+                event -> {
+                    circGrow.stop();
+                    circShrink.stop();
+
+                    breathingCircle.setScaleX(1);
+                    breathingCircle.setScaleY(1);
+
+                    startAnimationButton.setVisible(true);
+                    startAnimationButton.setDisable(false);
+                }
+        );
+        pause.play();
     }
 
     public Pane getRoot() {

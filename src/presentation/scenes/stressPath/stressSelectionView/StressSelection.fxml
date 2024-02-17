@@ -33,12 +33,8 @@
                   <children>
                      <StackPane fx:id="actionCircle1" prefHeight="150.0" prefWidth="200.0">
                         <children>
-                           <Circle id="firstRhythmCircle" fx:id="firstRhythmCircle" styleClass="firstRhythmColor" radius="40.0" strokeWidth="0.0">
-<!--                              <effect>-->
-<!--                                 <Bloom />-->
-<!--                              </effect>-->
-                           </Circle>
-                           <Button fx:id="chooseFirstRhythm" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
+                           <Circle id="firstRhythmCircle" fx:id="firstRhythmCircle" styleClass="firstRhythmColor" radius="40.0" strokeWidth="0.0" />
+                           <Button fx:id="chooseFirstRhythm" styleClass="chooseRhythmButton" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
                         </children>
                      </StackPane>
                      <VBox fx:id="textContainer1" alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
@@ -65,12 +61,8 @@
                   <children>
                      <StackPane fx:id="actionCircle2" prefHeight="150.0" prefWidth="200.0">
                         <children>
-                           <Circle id="secondRhythmCircle" fx:id="secondRhythmCircle" styleClass="secondRhythmColor" radius="40.0" strokeWidth="0.0">
-<!--                              <effect>-->
-<!--                                 <Bloom />-->
-<!--                              </effect>-->
-                           </Circle>
-                           <Button fx:id="chooseSecondRhythm" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
+                           <Circle id="secondRhythmCircle" fx:id="secondRhythmCircle" styleClass="secondRhythmColor" radius="40.0" strokeWidth="0.0" />
+                           <Button fx:id="chooseSecondRhythm" styleClass="chooseRhythmButton" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
                         </children>
                      </StackPane>
                      <VBox fx:id="textContainer2" alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
@@ -97,12 +89,8 @@
                   <children>
                      <StackPane fx:id="actionCircle3" prefHeight="150.0" prefWidth="200.0">
                         <children>
-                           <Circle id="thirdRhythmCircle" fx:id="thirdRhythmCircle" styleClass="thirdRhythmColor" radius="40.0" strokeWidth="0.0">
-<!--                              <effect>-->
-<!--                                 <Bloom />-->
-<!--                              </effect>-->
-                           </Circle>
-                           <Button fx:id="chooseThirdRhythm" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
+                           <Circle id="thirdRhythmCircle" fx:id="thirdRhythmCircle" styleClass="thirdRhythmColor" radius="40.0" strokeWidth="0.0" />
+                           <Button fx:id="chooseThirdRhythm" styleClass="chooseRhythmButton" maxHeight="82.0" maxWidth="82.0" minHeight="70.0" minWidth="70.0" prefHeight="82.0" prefWidth="82.0" />
                         </children>
                      </StackPane>
                      <VBox fx:id="textContainer3" alignment="CENTER" prefHeight="100.0" prefWidth="120.0">

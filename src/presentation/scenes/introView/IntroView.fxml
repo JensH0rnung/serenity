@@ -12,13 +12,13 @@
       <center>
          <VBox id="pathButtonsContainer" fx:id="labelContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-               <Label id="serenityLabel" fx:id="serenityLabel" alignment="CENTER" styleClass="test" text="SERENITY" textAlignment="CENTER" />
+               <Label id="serenityLabel" fx:id="serenityLabel" styleClass="introLabel" alignment="CENTER" text="SERENITY" textAlignment="CENTER" />
                <Line id="introLabelDivider" fx:id="introLabelDivider" endX="120.5" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0">
                   <VBox.margin>
                      <Insets bottom="15.0" top="15.0" />
                   </VBox.margin>
                </Line>
-               <Label id="introThreeWordsLabel" fx:id="introThreeWordsLabel" alignment="CENTER" text="calm - peaceful - untroubled" textAlignment="CENTER" />
+               <Label id="introThreeWordsLabel" fx:id="introThreeWordsLabel" styleClass="introLabel" alignment="CENTER" text="calm - peaceful - untroubled" textAlignment="CENTER" />
             </children>
          </VBox>
       </center>

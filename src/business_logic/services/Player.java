@@ -67,8 +67,8 @@ public class Player {
         // starte erste Wiedergabe
         if (mediaPlayer == null) {
             mediaPlayer = new MediaPlayer(getActMedia());
-            mediaPlayer.play();
             mediaPlayer.setVolume(currentVolume.get());
+            mediaPlayer.play();
             countTime();
         }
     }
@@ -162,7 +162,6 @@ public class Player {
     public void setVolume(Float volume) {
         if(mediaPlayer != null) {
             mediaPlayer.setVolume(volume);
-            System.out.println("Player hat nun " + volume);
         }
     }
 

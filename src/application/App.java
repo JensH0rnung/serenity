@@ -31,6 +31,7 @@ public class App extends Application {
     private Scene scene;
     private Pane root;
     private View defaultView;
+    private IntroViewController introViewController;
     private AnimatedViews nextController;
     private HashMap<View, Pane> views;
     private HashMap<View, AnimatedViews> viewControllers;
@@ -76,12 +77,8 @@ public class App extends Application {
         // Zum speichern aller Controller
         viewControllers = new HashMap<>();
 
-        /*
-         Übergabe dieser Klasse an Controller, damit switchView aufgerufen werden kann
-         Sinnvoll oder andere Implementierung?
-         */
 
-        IntroViewController introViewController = new IntroViewController();
+        introViewController = new IntroViewController(this);
         introView = introViewController.getRoot();
         views.put(View.INTRO, introView);
         viewControllers.put(View.INTRO, introViewController);
@@ -163,8 +160,8 @@ public class App extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Serenity");
-//        fadeTo(defaultView);
         primaryStage.show();
+        introViewController.startAnimations();
     }
 
     /**
@@ -194,9 +191,7 @@ public class App extends Application {
         Pane currentPane = (Pane) scene.getRoot();
         Pane nextPane = views.get(nextView);
 
-        System.out.println("nextView - " + nextView);
         nextController = viewControllers.get(nextView);
-        System.out.println("nextController - "+ nextController);
         nextController.hideAllElements();
 
         startRightSlideAnimation(scene, currentPane, nextPane);
@@ -235,7 +230,7 @@ public class App extends Application {
         // Anim-Definitionen
         FadeTransition fadeOut = new FadeTransition();
         fadeOut.setNode(currentView);
-        fadeOut.setDuration(Duration.seconds(0.25));
+        fadeOut.setDuration(Duration.seconds(0.5));
         fadeOut.setInterpolator(Interpolator.EASE_BOTH);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);

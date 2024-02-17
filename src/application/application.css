@@ -13,6 +13,10 @@
     -fx-background-color: lightblue;
 }
 
+/* .introLabel {
+    -fx-text-fill: linear-gradient(to bottom, #14E087, #66eab1);
+} */
+
 #serenityLabel {
     -fx-font-size: 65;
     -fx-font-family: 'Times New Roman' !important;
@@ -78,12 +82,13 @@ Button {
     -fx-background-image: url("presentation/ui_components/homeIcon.png"); */
 }
 
-#rightArrowButton {
+/* #firstRhythmCircle:hover, #secondRhythmCircle:hover, #thirdRhythmCircle:hover {
+    -fx-fill: rgba(0, 0, 0, 0.100);
+} */
 
-}
-
-#leftArrowButton {
-
+.chooseRhythmButton:hover {
+    -fx-background-radius: 50%;
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
 
 .firstRhythmColor {
@@ -105,9 +110,8 @@ Button {
     -fx-font-weight: bold;
 }
 
-/* Für jeden Button konfigurieren */
 #startAnimationButton:hover {
-    -fx-background-color: rgba(6, 145, 122, 0.491);
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
 
 #sleepTimer {
